@@ -1,5 +1,4 @@
-# IMMIGRATION ANALYSIS ON US!
-### Data Engineering Capstone Project
+# IMMIGRATION ANALYSIS IN THE US!
 
 #### Project Summary
 The present project takes into account some US datasets regarding the immigration during a fixed amount of time
