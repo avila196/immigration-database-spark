@@ -1,0 +1,47 @@
+### Database description / data dictionary
+
+## The following gives the schema and the main relations between fields on tables
+
+# Tables declaration
+Table immigrants_info as dim1 {
+  imm_id int [pk]      -> id for immigrant
+  birth_year int       -> int for birth year
+  gender varchar       -> gender, either M or F
+  visa_type varchar    -> visa type between valid US visas (B2, WT, WB, among other)
+}
+
+Table airports {
+  id int [pk]          -> id for airport unique for dataset
+  type varchar         -> type of airport (heliport, small airport, closed, among others)
+  name varchar         -> name of airport
+  elevation_ft int     -> elevation of airport in feet
+  state varchar        -> US state abbreviation of airport (NY, TX, ...)
+  city varchar         -> city where airport is located
+ }
+ 
+Table cities_demographics {
+  city varchar [pk]    -> city name, unique
+  state_name varchar   -> state name of city (Texas, Washington, ...)
+  male_pop int         -> city's male population
+  female_pop int       -> city's female population
+  total_pop int        -> city's total population
+  state varchar        -> US state abbreviation of city (NY, TX, ...)
+  race varchar         -> predominant city race
+ }
+ 
+Table immigration_fact {
+  imm_id int [pk]      -> id for immigrant
+  year int             -> year of immigrant entry
+  country_code int     -> country code for immigrant entry
+  aiport_code varchar  -> airport code where immigration was made
+  state varchar        -> US state abbreviation of immigration entry (NY, TX, ...)
+  departure_date int   -> departure date
+ }
+
+# References between tables
+# > many-to-one; < one-to-many; - one-to-one
+Ref: immigrants_info.imm_id - immigration_fact.imm_id  
+Ref: immigration_fact.state < cities_demographics.state
+Ref: immigration_fact.state < airports.state
+Ref: immigration_fact.aiport_code - airports.city
+
